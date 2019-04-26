@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import styles from './FriendList.css';
-import FriendListItem from './FriendListItem';
+import React, { Component, PropTypes } from 'react'
+import styles from './FriendList.css'
+import FriendListItem from './FriendListItem'
 
 class FriendList extends Component {
   render () {
@@ -15,18 +15,17 @@ class FriendList extends Component {
                 name={friend.name}
                 starred={friend.starred}
                 {...this.props.actions} />
-            );
+            )
           })
         }
       </ul>
-    );
+    )
   }
-
 }
 
 FriendList.propTypes = {
   friends: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
-};
+}
 
-export default FriendList;
+export default FriendList
