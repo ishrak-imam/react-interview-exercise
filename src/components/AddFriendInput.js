@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styles from './AddFriendInput.css'
 
@@ -19,16 +20,16 @@ class AddFriendInput extends Component {
 
         <div className={`${styles.gender}`}>
           <label>
-            <input onChange={this.handleRadioChange} type='radio' value='M' checked={gender === 'M'} />
-            <small>Male</small>
+            <input onChange={this.handleGenderChange} type='radio' value='M' checked={gender === 'M'} />
+            <small className={`${styles.label}`}>Male</small>
           </label>
 
           <label>
-            <input onChange={this.handleRadioChange} type='radio' value='F' checked={gender === 'F'} />
-            Female
+            <input onChange={this.handleGenderChange} type='radio' value='F' checked={gender === 'F'} />
+            <small className={`${styles.label}`}>Female</small>
           </label>
 
-          <button className={`btn btn-default ${styles.addFriend}`}
+          <button
             onClick={this.handleSubmit}>
             <span>Add Friend</span>
           </button>
@@ -47,10 +48,10 @@ class AddFriendInput extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleRadioChange = this.handleRadioChange.bind(this)
+    this.handleGenderChange = this.handleGenderChange.bind(this)
   }
 
-  handleRadioChange (e) {
+  handleGenderChange (e) {
     this.setState({ gender: e.target.value })
   }
 

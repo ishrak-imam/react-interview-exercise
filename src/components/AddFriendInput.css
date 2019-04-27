@@ -15,6 +15,7 @@
   padding: 10px
 }
 
-:local(.addFriend) {
-  width: 100px
+:local(.label) {
+  font-size: 18px;
+  margin-left: 10px
 }

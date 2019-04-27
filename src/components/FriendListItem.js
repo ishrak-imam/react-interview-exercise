@@ -1,10 +1,13 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styles from './FriendListItem.css'
+import { connect } from 'react-redux'
 
 class FriendListItem extends Component {
   render () {
-    const { id, name, starred, gender } = this.props.friend
+    const { friendId, friendlist: { friends } } = this.props
+    const { name, gender, id, starred } = friends[friendId]
 
     return (
       <li className={styles.friendListItem}>
@@ -37,8 +40,12 @@ class FriendListItem extends Component {
 }
 
 FriendListItem.propTypes = {
-  friend: PropTypes.object.isRequired,
+  friendId: PropTypes.number.isRequired,
   starFriend: PropTypes.func.isRequired
 }
 
-export default FriendListItem
+function mapStateToProps (state) {
+  return state
+}
+
+export default connect(mapStateToProps, null)(FriendListItem)

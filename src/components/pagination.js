@@ -1,69 +1,45 @@
 import React, { Component } from 'react'
-// import classnames from 'classnames'
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import styles from './pagination.css'
 
 class Pagination extends Component {
   constructor (props) {
     super(props)
-
     this.goToPage = this.goToPage.bind(this)
   }
 
   goToPage (page) {
     return () => {
-      this.props.goToPage(page)
+      if (this.props.currentPage !== page) {
+        this.props.goToPage(page)
+      }
     }
   }
 
   render () {
-    const { pagination: { currentPage, numberOfPages } } = this.props
-
+    const { pages, currentPage } = this.props
     return (
       <div className={styles.pagination}>
-
-        {
-          currentPage > 1 &&
-          <button className={`btn btn-default ${styles.prev}`}
-            onClick={this.goToPage(currentPage - 1)}>
-            <i className='fa fa-chevron-left' />
-          </button>
-        }
-
-        {
-          !!(currentPage - 1) &&
-          <button className={`btn btn-default`}
-            onClick={this.goToPage(currentPage - 1)}>
-            <span>{currentPage - 1}</span>
-          </button>
-        }
-
-        <button className={`btn btn-default ${styles.btnActive}`}
-          onClick={() => {}}>
-          <span>{currentPage}</span>
-        </button>
-
-        {
-          (currentPage + 1) <= numberOfPages &&
-          <button className={`btn btn-default`}
-            onClick={this.goToPage(currentPage + 1)}>
-            <span>{currentPage + 1}</span>
-          </button>
-        }
-
-        {/* <div className={`${styles.dot}`}>
-          <span>. . .</span>
-        </div> */}
-
-        {
-          currentPage < numberOfPages &&
-          <button className={`btn btn-default ${styles.next}`}
-            onClick={this.goToPage(currentPage + 1)}>
-            <i className='fa fa-chevron-right' />
-          </button>
-        }
+        <button onClick={this.goToPage(pages[0])} className={`${styles.anchor}`}>&laquo;</button>
+        {pages.map(page => (
+          <button
+            onClick={this.goToPage(page)}
+            key={page}
+            className={classnames(styles.anchor, {
+              'active': currentPage === page
+            })}
+          >{page}</button>
+        ))}
+        <button onClick={this.goToPage(pages[pages.length - 1])} className={`${styles.anchor}`}>&raquo;</button>
       </div>
     )
   }
+}
+
+Pagination.propTypes = {
+  pages: PropTypes.array.isRequired,
+  currentPage: PropTypes.string.isRequired
 }
 
 export default Pagination

@@ -1,65 +1,111 @@
 import * as types from '../constants/ActionTypes'
 
+const ITEMS_PER_PAGE = 3
+
+const data = [
+  {
+    name: 'Theodore Roosevelt',
+    starred: true,
+    id: 0,
+    gender: 'M'
+  },
+  {
+    name: 'Abraham Lincoln',
+    starred: false,
+    id: 1,
+    gender: 'M'
+  },
+  {
+    name: 'George Washington',
+    starred: false,
+    id: 2,
+    gender: 'M'
+  }
+]
+
+const normalizeList = list => {
+  return list.reduce((obj, item, index) => {
+    obj.map[item.id] = item
+    obj.ids.push(index)
+    return obj
+  }, { map: {}, ids: [] })
+}
+
+const chunkList = (list, size) => {
+  let chunkedList = []
+  const noOfChunks = Math.ceil(list.length / size)
+  for (let i = 0; i < noOfChunks; i++) {
+    chunkedList.push(list.slice(i * size, (i + 1) * size))
+  }
+  return chunkedList
+}
+
+const getPages = ids => {
+  const chunkedIds = chunkList(ids, ITEMS_PER_PAGE)
+  return chunkedIds.reduce((pages, chunk, index) => {
+    pages[index + 1] = { ids: chunk }
+    return pages
+  }, {})
+}
+
+const { map, ids } = normalizeList(data)
+
 const initialState = {
-  friendsById: [
-    {
-      name: 'Theodore Roosevelt',
-      starred: true,
-      id: 1,
-      gender: 'M'
-    },
-    {
-      name: 'Abraham Lincoln',
-      starred: false,
-      id: 2,
-      gender: 'M'
-    },
-    {
-      name: 'George Washington',
-      starred: false,
-      id: 3,
-      gender: 'M'
-    }
-  ],
+  friends: map,
+  ids,
   pagination: {
-    pagingEnabled: false,
-    chunk: 3,
-    currentPage: 1,
-    numberOfPages: 1
+    itemsPerPage: ITEMS_PER_PAGE,
+    currentPage: '1',
+    pages: getPages(ids)
   }
 }
 
 export default function friends (state = initialState, action) {
   switch (action.type) {
     case types.ADD_FRIEND:
-      let friendsById = [...state.friendsById, { ...action.friend, id: state.friendsById.length + 1 }]
+      let ids = state.ids
+      let friends = { ...state.friends, [ids.length]: { ...action.friend, id: ids.length } }
+      ids.push(ids.length)
+
       return {
         ...state,
-        friendsById,
+        friends,
+        ids,
         pagination: {
           ...state.pagination,
-          pagingEnabled: friendsById.length > state.pagination.chunk,
-          numberOfPages: Math.ceil(friendsById.length / state.pagination.chunk)
+          pages: getPages(ids)
         }
       }
+
     case types.DELETE_FRIEND:
-      friendsById = state.friendsById.filter(item => item.id !== action.id)
+      ids = state.ids.filter(id => id !== action.id)
+      friends = Object.assign({}, state.friends)
+      delete friends[action.id]
+
+      // let { [action.id]: deleted, ...afterDelete } = friends
+
       return {
         ...state,
-        friendsById,
+        friends,
+        ids,
         pagination: {
           ...state.pagination,
-          pagingEnabled: friendsById.length > state.pagination.chunk,
-          numberOfPages: Math.ceil(friendsById.length / state.pagination.chunk)
+          pages: getPages(ids)
         }
       }
+
     case types.STAR_FRIEND:
-      let friends = [...state.friendsById]
-      let friend = friends.find(item => item.id === action.id)
-      friend.starred = !friend.starred
+      friends = state.friends
+      let friend = friends[action.id]
       return {
         ...state,
-        friendsById: friends
+        friends: {
+          ...friends,
+          [action.id]: {
+            ...friend,
+            starred: true
+          }
+        }
       }
 
     case types.GO_TO_PAGE:

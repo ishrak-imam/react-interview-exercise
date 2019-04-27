@@ -17,7 +17,7 @@ class FriendListApp extends Component {
   }
 
   render () {
-    const { friendlist: { friendsById, pagination } } = this.props
+    const { friendlist: { ids, pagination: { currentPage, pages } } } = this.props
 
     const actions = {
       addFriend: this.props.addFriend,
@@ -25,21 +25,20 @@ class FriendListApp extends Component {
       starFriend: this.props.starFriend
     }
 
-    let friendList = friendsById
-    if (pagination.pagingEnabled) {
-      const chunk = pagination.chunk
-      const currentPage = pagination.currentPage
-      friendList = friendList.slice((currentPage - 1) * chunk, chunk * currentPage)
-    }
+    const page = pages[currentPage]
+    const pageNumbers = Object.keys(pages)
+
+    let friendIds = ids
+    if (page) friendIds = page.ids
 
     return (
       <div className={styles.friendListApp}>
         <h1>The FriendList</h1>
         <AddFriendInput addFriend={actions.addFriend} />
-        <FriendList friends={friendList} actions={actions} />
+        <FriendList friendIds={friendIds} actions={actions} />
         {
-          pagination.pagingEnabled &&
-          <Pagination pagination={pagination} goToPage={this.goToPage} />
+          page && ids.length > 2 &&
+          <Pagination currentPage={currentPage} pages={pageNumbers} goToPage={this.goToPage} />
         }
       </div>
     )
