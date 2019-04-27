@@ -6,6 +6,10 @@
   display: flex;
 }
 
+:local(.genderIcon) {
+  color: #5C75B0
+}
+
 :local(.friendInfos) {
   flex: 1 0 auto;
 }

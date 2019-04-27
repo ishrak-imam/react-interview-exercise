@@ -1,0 +1,21 @@
+:local(.pagination) {
+  height: 45px;
+  padding: 5px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
+}
+
+:local(.btnActive) {
+  background-color: #5C75B0;
+  color: white
+}
+
+:local(.dot) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 30px;
+  font-weight: 800
+}
