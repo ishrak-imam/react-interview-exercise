@@ -62,12 +62,11 @@ const initialState = {
 
 export default function friends (state = initialState, action) {
   switch (action.type) {
-    case types.ADD_FRIEND:
+    case types.ADD_FRIEND: {
       let ids = state.ids
       const id = String(ids.length)
       let friends = { ...state.friends, [ids.length]: { ...action.friend, id } }
-      ids.push(id)
-
+      ids = [...state.ids, id]
       return {
         ...state,
         friends,
@@ -77,12 +76,12 @@ export default function friends (state = initialState, action) {
           pages: getPages(ids)
         }
       }
+    }
 
-    case types.DELETE_FRIEND:
-      ids = state.ids.filter(id => id !== action.id)
-      friends = Object.assign({}, state.friends)
+    case types.DELETE_FRIEND: {
+      const ids = state.ids.filter(id => id !== action.id)
+      const friends = Object.assign({}, state.friends)
       delete friends[action.id]
-
       // let { [action.id]: deleted, ...afterDelete } = friends
 
       return {
@@ -94,9 +93,10 @@ export default function friends (state = initialState, action) {
           pages: getPages(ids)
         }
       }
+    }
 
-    case types.STAR_FRIEND:
-      friends = state.friends
+    case types.STAR_FRIEND: {
+      const friends = state.friends
       let friend = friends[action.id]
       return {
         ...state,
@@ -108,8 +108,9 @@ export default function friends (state = initialState, action) {
           }
         }
       }
+    }
 
-    case types.GO_TO_PAGE:
+    case types.GO_TO_PAGE: {
       return {
         ...state,
         pagination: {
@@ -117,6 +118,7 @@ export default function friends (state = initialState, action) {
           currentPage: action.page
         }
       }
+    }
 
     default:
       return state
