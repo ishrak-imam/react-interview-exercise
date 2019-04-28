@@ -65,7 +65,7 @@ class Pagination extends Component {
         <button onClick={this.goToPage('1')} className={`${styles.anchor}`}>&laquo;</button>
         <button onClick={this.goToPage(String(Number(currentPage) - 1))} className={`${styles.anchor}`}>&lsaquo;</button>
         {chunkedPages.map(page => {
-          if (page === 'dot') return <span key={page}>. . .</span>
+          if (page === 'dot') return <span className={`${styles.anchor}`} key={page}>. . .</span>
           return (
             <button
               onClick={this.goToPage(page)}
