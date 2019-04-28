@@ -6,27 +6,27 @@ const data = [
   {
     name: 'Theodore Roosevelt',
     starred: true,
-    id: 0,
+    id: '0',
     gender: 'M'
   },
   {
     name: 'Abraham Lincoln',
     starred: false,
-    id: 1,
+    id: '1',
     gender: 'M'
   },
   {
     name: 'George Washington',
     starred: false,
-    id: 2,
+    id: '2',
     gender: 'M'
   }
 ]
 
 const normalizeList = list => {
-  return list.reduce((obj, item, index) => {
+  return list.reduce((obj, item) => {
     obj.map[item.id] = item
-    obj.ids.push(index)
+    obj.ids.push(item.id)
     return obj
   }, { map: {}, ids: [] })
 }
@@ -64,8 +64,9 @@ export default function friends (state = initialState, action) {
   switch (action.type) {
     case types.ADD_FRIEND:
       let ids = state.ids
-      let friends = { ...state.friends, [ids.length]: { ...action.friend, id: ids.length } }
-      ids.push(ids.length)
+      const id = String(ids.length)
+      let friends = { ...state.friends, [ids.length]: { ...action.friend, id } }
+      ids.push(id)
 
       return {
         ...state,

@@ -40,7 +40,7 @@ class FriendListItem extends Component {
 }
 
 FriendListItem.propTypes = {
-  friendId: PropTypes.number.isRequired,
+  friendId: PropTypes.string.isRequired,
   starFriend: PropTypes.func.isRequired
 }
 
