@@ -9,6 +9,16 @@ exports[`test Pagination component 1`] = `
   <button
     className="undefined"
     onClick={[Function]}>
+    ‹
+  </button>
+  <button
+    className="undefined"
+    onClick={[Function]}>
+    ›
+  </button>
+  <button
+    className="undefined"
+    onClick={[Function]}>
     »
   </button>
 </div>
