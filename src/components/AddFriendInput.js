@@ -10,7 +10,7 @@ class AddFriendInput extends Component {
       <div>
         <input
           type='text'
-          autoFocus='true'
+          autoFocus
           className={classnames('form-control', styles.addFriendInput)}
           placeholder='Type the name of a friend'
           value={name}

@@ -1,0 +1,4 @@
+exports[`test FriendList component 1`] = `
+<ul
+  className={undefined} />
+`;

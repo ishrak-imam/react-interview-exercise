@@ -5,26 +5,21 @@ import FriendListItem from './FriendListItem'
 
 class FriendList extends Component {
   render () {
+    const { friendIds } = this.props
     return (
       <ul className={styles.friendList}>
-        {
-          this.props.friendIds.map(id => {
-            return (
-              <FriendListItem
-                key={id}
-                friendId={id}
-                {...this.props.actions} />
-            )
-          })
-        }
+        {friendIds.map(id => {
+          return (
+            <FriendListItem key={id} friendId={id} />
+          )
+        })}
       </ul>
     )
   }
 }
 
 FriendList.propTypes = {
-  friendIds: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  friendIds: PropTypes.array.isRequired
 }
 
 export default FriendList

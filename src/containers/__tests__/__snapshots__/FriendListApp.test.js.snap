@@ -1,0 +1,26 @@
+exports[`test FriendListApp component 1`] = `
+<div
+  className={undefined}>
+  <h1>
+    The FriendList
+  </h1>
+  <AddFriendInput
+    addFriend={[Function]} />
+  <FriendList
+    friendIds={
+      Array [
+        "0",
+        "1",
+        "2",
+      ]
+    } />
+  <Pagination
+    currentPage="1"
+    goToPage={[Function]}
+    pages={
+      Array [
+        "1",
+      ]
+    } />
+</div>
+`;

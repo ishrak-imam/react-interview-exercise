@@ -1,6 +1,6 @@
 
-import * as actions from './FriendsActions'
-import * as types from '../constants/ActionTypes'
+import * as actions from '../FriendsActions'
+import * as types from '../../constants/ActionTypes'
 
 describe('ADD FRIEND', () => {
   it('should create an action to add a friend', () => {

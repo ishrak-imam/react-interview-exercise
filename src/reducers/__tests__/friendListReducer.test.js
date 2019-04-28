@@ -1,6 +1,6 @@
 
-import friendsReducer from './friendlist'
-import * as types from '../constants/ActionTypes'
+import friendsReducer from '../friendlist'
+import * as types from '../../constants/ActionTypes'
 
 const initialState = {
   'friends': {

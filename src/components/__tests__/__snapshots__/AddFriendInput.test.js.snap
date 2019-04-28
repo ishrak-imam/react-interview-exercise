@@ -1,0 +1,42 @@
+exports[`test AddFriendInput component 1`] = `
+<div>
+  <input
+    autoFocus={true}
+    className="form-control"
+    onChange={[Function]}
+    placeholder="Type the name of a friend"
+    type="text"
+    value="" />
+  <div
+    className="undefined">
+    <label>
+      <input
+        checked={false}
+        onChange={[Function]}
+        type="radio"
+        value="M" />
+      <small
+        className="undefined">
+        Male
+      </small>
+    </label>
+    <label>
+      <input
+        checked={false}
+        onChange={[Function]}
+        type="radio"
+        value="F" />
+      <small
+        className="undefined">
+        Female
+      </small>
+    </label>
+    <button
+      onClick={[Function]}>
+      <span>
+        Add Friend
+      </span>
+    </button>
+  </div>
+</div>
+`;
