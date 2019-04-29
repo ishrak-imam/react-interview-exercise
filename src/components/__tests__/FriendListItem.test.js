@@ -10,6 +10,7 @@ test('FriendListItem component', () => {
       friendId='1'
       deleteFriend={() => {}}
       starFriend={() => {}}
+      changePageNumber={() => {}}
       friendlist={initialState}
     />
   )

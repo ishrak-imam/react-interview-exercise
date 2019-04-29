@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import styles from './FriendListItem.css'
 import { connect } from 'react-redux'
 
-import { deleteFriend, starFriend } from '../actions/FriendsActions'
+import { deleteFriend, starFriend, changePageNumber } from '../actions/FriendsActions'
 
 export class FriendListItem extends Component {
   constructor (props) {
@@ -26,7 +26,10 @@ export class FriendListItem extends Component {
   }
 
   deleteFriend (id) {
-    return () => this.props.deleteFriend(id)
+    return () => {
+      this.props.deleteFriend(id)
+      this.props.changePageNumber()
+    }
   }
 
   starFriend (id) {
@@ -70,7 +73,8 @@ export class FriendListItem extends Component {
 FriendListItem.propTypes = {
   friendId: PropTypes.string.isRequired,
   deleteFriend: PropTypes.func.isRequired,
-  starFriend: PropTypes.func.isRequired
+  starFriend: PropTypes.func.isRequired,
+  changePageNumber: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -79,5 +83,6 @@ function mapStateToProps (state) {
 
 export default connect(mapStateToProps, {
   deleteFriend,
-  starFriend
+  starFriend,
+  changePageNumber
 })(FriendListItem)

@@ -27,3 +27,9 @@ export function goToPage (page) {
     page
   }
 }
+
+export function changePageNumber () {
+  return {
+    type: types.CHANGE_PAGE_NUMBER
+  }
+}

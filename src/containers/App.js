@@ -4,17 +4,10 @@ import { Provider } from 'react-redux'
 import FriendListApp from './FriendListApp'
 import * as reducers from '../reducers'
 
-const logger = store => next => action => {
-  const result = next(action)
-  console.groupCollapsed('%c ACTION', 'color: grey  ', action.type)
-  console.log('%c DISPATCH   :: ', 'color: green', action)
-  console.log('%c NXTSTATE   :: ', 'color: green', store.getState())
-  console.groupEnd()
-  return result
-}
+import { changePageNumber, logger } from '../middlewares'
 
 const reducer = combineReducers(reducers)
-const store = createStore(reducer, applyMiddleware(logger))
+const store = createStore(reducer, applyMiddleware(logger, changePageNumber))
 
 export default class App extends Component {
   render () {
